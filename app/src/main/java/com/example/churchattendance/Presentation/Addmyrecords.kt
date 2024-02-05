@@ -16,7 +16,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,14 +39,46 @@ fun Addmyrecords(navController: NavController) {
                 .verticalScroll(rememberScrollState())
 
         ) {
+            Text(text ="Create record",
+                fontSize= 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(1.dp)
+            )
 
             OutlinedTextField(
                 value = textState.value,
                 onValueChange = { textState.value = it },
-                label = { Text("Enter your text") },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                label = { Text("Enter full names") }
+                /*colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color.Red,
-                    unfocusedBorderColor = Color.Blue)
+                    unfocusedBorderColor = Color.Blue)*/
+            )
+
+            OutlinedTextField(
+                value = textState.value,
+                onValueChange = { textState.value = it },
+                label = { Text("Enter phone numbers") }
+                /*colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Blue)*/
+            )
+
+            OutlinedTextField(
+                value = textState.value,
+                onValueChange = { textState.value = it },
+                label = { Text("Age") }
+                /*colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Blue)*/
+            )
+
+            OutlinedTextField(
+                value = textState.value,
+                onValueChange = { textState.value = it },
+                label = { Text("Residence") }
+                /*colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Blue)*/
             )
 
         }
