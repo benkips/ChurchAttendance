@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -24,6 +25,7 @@ fun BottomNavigationBar() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val scaffoldState = rememberScaffoldState()
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -64,7 +66,7 @@ fun BottomNavigationBar() {
                 )
             )
         ) {
-            SetupNavGraph(navController = navController)
+            SetupNavGraph(navController = navController,scaffoldState)
         }
     }
 }

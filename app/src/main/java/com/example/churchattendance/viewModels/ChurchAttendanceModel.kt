@@ -8,18 +8,18 @@ import com.example.churchattendance.Network.Resource
 import com.example.churchattendance.Repo.Repostuff
 import com.example.kabetegaterecoder.Models.MyResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChurchAttendanceModel @Inject constructor(private val repostuff: Repostuff) : ViewModel() {
 
-    private val _urlzResponse=MutableStateFlow<Resource<MyResponse>?>(null)
-
-    val urlzResponse: StateFlow<Resource<MyResponse>>
+   /* private val _urlzResponse=MutableStateFlow<Resource<MyResponse>?>(null)
+    val urlzResponse: StateFlow<Resource<MyResponse>?> = _urlzResponse*/
+   private val _urlzResponse: MutableLiveData<Resource<MyResponse>?> = MutableLiveData()
+    val urlzResponse: LiveData<Resource<MyResponse>?>
         get() = _urlzResponse
+
 
 
     fun addrecords(
@@ -38,6 +38,7 @@ class ChurchAttendanceModel @Inject constructor(private val repostuff: Repostuff
             r,
         )
     }
+
 
 
 
