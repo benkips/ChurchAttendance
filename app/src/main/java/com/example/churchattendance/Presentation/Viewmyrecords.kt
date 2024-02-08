@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -24,24 +26,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.churchattendance.Models.Data
+import com.example.churchattendance.Network.Resource
+import com.example.churchattendance.R
+import com.example.churchattendance.Utill.FullScreenProgressbar
+import com.example.churchattendance.Utill.RetrySection
 import com.example.churchattendance.viewModels.ChurchAttendanceRecordsModel
 
 @Composable
 fun Viewmyrecords(navController: NavController,viewModel: ChurchAttendanceRecordsModel)  {
 
-    val foldertype = viewModel.foldername.collectAsState()
-    LaunchedEffect(key1 = foldertype.value) {
-        viewModel.getpdfTeachings()
+    val days = viewModel.daysitems.collectAsState()
+    LaunchedEffect(key1 = days.value) {
+        viewModel.viewrecords()
     }
 
-    val Folderlist = viewModel.foldersResponse?.collectAsState()
-    Log.d("Folderlist", "Folderlist: " + Folderlist)
-    Folderlist?.value.let {
+    val dayslist = viewModel.urlzResponses?.collectAsState()
+    Log.d("dayslist", "dayslist: " + dayslist)
+    dayslist?.value.let {
         when (it) {
             is Resource.Failure -> {
                 RetrySection(
                     error = it.errorBody!!,
-                    onRetry = { viewModel.getpdfTeachings() })
+                    onRetry = { viewModel.viewrecords() })
             }
 
             Resource.Loading -> {
@@ -50,7 +57,7 @@ fun Viewmyrecords(navController: NavController,viewModel: ChurchAttendanceRecord
 
             is Resource.Success -> {
 
-                FolderList(it.value, navController, viewModel)
+                DaysList(it.value.data, navController, viewModel)
             }
 
             else -> {
@@ -67,24 +74,24 @@ fun Viewmyrecords(navController: NavController,viewModel: ChurchAttendanceRecord
 
 
 @Composable
-fun FolderList(
-    folders: ArrayList<FolderzItem>,
+fun DaysList(
+    days: List<Data>,
     navController: NavController,
-    viewModel: Pdfviewmodel
+    viewModel: ChurchAttendanceRecordsModel
 ) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(id = R.color.cultured))
+            .background(colorResource(id = R.color.white))
     ) {
         LazyColumn(
             Modifier.padding(10.dp)
         ) {
-            items(folders) {
+            items(days) {
                 TeachingCardItem(
                     navController = navController,
                     item = it,
-                    R.drawable.ic_baseline_folder_special_24,
+                    R.drawable.baseline_edit_calendar_24,
                     viewModel
                 )
             }
@@ -96,9 +103,9 @@ fun FolderList(
 @Composable
 fun TeachingCardItem(
     navController: NavController,
-    item: FolderzItem,
+    item: Data,
     imagevector: Int,
-    viewModel: Pdfviewmodel
+    viewModel: ChurchAttendanceRecordsModel
 ) {
 
     Card(
@@ -107,7 +114,7 @@ fun TeachingCardItem(
             .padding(top = 8.dp, end = 5.dp)
             .clickable {
                 viewModel.setUpdating(item)
-                navController.navigate(Constants.Screens.CONTENT_SCREEN)
+                //navController.navigate(Constants.Screens.CONTENT_SCREEN)
             }
     ) {
 
@@ -119,23 +126,22 @@ fun TeachingCardItem(
             Image(
                 painter = painterResource(id = imagevector),
                 contentDescription = null,
-                modifier = Modifier.size(130.dp),
+                modifier = Modifier.size(50.dp),
                 contentScale = ContentScale.FillBounds
             )
 
             Column(Modifier.padding(start = 5.dp)) {
                 Text(
-                    text = item.folder,
+                    text = item.date,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.SemiBold
                 )
                 Row {
 
-                    Text(text = "(" + item.count.toString() + ")")
                     Text(
-                        text = "items",
+                        text = item.records.toString() + " Records",
                         fontWeight = FontWeight.SemiBold,
-                        color = colorResource(id = R.color.gray),
+                        color = colorResource(id = R.color.black),
                     )
                 }
             }

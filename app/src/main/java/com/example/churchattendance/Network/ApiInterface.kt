@@ -24,5 +24,5 @@ interface ApiInterface {
 
     //Getting urls
     @GET("viewrecords")
-    suspend  fun viewrecords(): List<MyRecordResponse>
+    suspend  fun viewrecords(): MyRecordResponse
 }
