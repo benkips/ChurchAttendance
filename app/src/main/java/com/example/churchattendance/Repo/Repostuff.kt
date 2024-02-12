@@ -19,4 +19,7 @@ class Repostuff @Inject constructor (private val apiInterface: ApiInterface):Bas
     suspend fun viewrecords() = safeApiCall {
         apiInterface.viewrecords()
     }
+    suspend fun getpdfdata( x:String,) = safeApiCall {
+        apiInterface.getmydata( x)
+    }
 }

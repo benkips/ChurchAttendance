@@ -1,6 +1,7 @@
 package com.example.churchattendance.Presentation
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -73,7 +75,7 @@ fun Viewmyrecords(navController: NavController,viewModel: ChurchAttendanceRecord
         }
     }
 
-    //folderdetails
+      //folderdetails
     //   val foldertype = viewModel.foldername.collectAsState()
 
 
@@ -128,13 +130,15 @@ fun TeachingCardItem(
     imagevector: Int,
     viewModel: ChurchAttendanceRecordsModel
 ) {
+    val contextForToast = LocalContext.current.applicationContext
 
     Card(
         elevation = 4.dp,
         modifier = Modifier
             .padding(top = 8.dp, end = 5.dp)
             .clickable {
-                viewModel.setUpdating(item)
+                /*viewModel.setUpdating(item)
+                viewModel.getpdf(item.date)*/
                 //navController.navigate(Constants.Screens.CONTENT_SCREEN)
             }
     ) {
@@ -170,9 +174,9 @@ fun TeachingCardItem(
                     Column(Modifier.padding(start = 5.dp)) {
                         Button(
                             onClick = {
-
-
-
+                                //viewModel.setUpdating(item)
+                                Toast.makeText(contextForToast, "clicked", Toast.LENGTH_SHORT).show()
+                                //viewModel.getpdf(item.date)
                             },
                             shape = RoundedCornerShape(topEnd = 0.dp, topStart = 10.dp, bottomEnd = 0.dp, bottomStart = 10.dp),
                             modifier = Modifier
@@ -183,7 +187,7 @@ fun TeachingCardItem(
                         ) {
                             androidx.compose.material3.Text(
                                 text = "Download",
-                                color = Color.White,
+                                color = Color.White
 
                             )
 

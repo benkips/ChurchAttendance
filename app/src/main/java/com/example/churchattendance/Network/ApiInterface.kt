@@ -25,7 +25,10 @@ interface ApiInterface {
     //Getting records
     @GET("viewrecords")
     suspend  fun viewrecords(): MyRecordResponse
-    //Getting records
-    @GET("gettabledata")
-    suspend  fun viewrecords(): MyRecordResponse
+    //Getting individualdata;
+    @POST("gettabledata")
+    suspend  fun getmydata(
+        @Field("times") mydate: String?
+    ): MyRecordResponse
+
 }

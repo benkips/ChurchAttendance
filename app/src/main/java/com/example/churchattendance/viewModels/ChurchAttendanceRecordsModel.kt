@@ -30,6 +30,8 @@ class ChurchAttendanceRecordsModel @Inject constructor(private val repostuff: Re
             daysitems.value= ""
         }
     }
-
+    fun getpdf(x: String)=viewModelScope.launch {
+         repostuff.getpdfdata(x)
+    }
 
 }
