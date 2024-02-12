@@ -22,7 +22,10 @@ interface ApiInterface {
     ): MyResponse
 
 
-    //Getting urls
+    //Getting records
     @GET("viewrecords")
+    suspend  fun viewrecords(): MyRecordResponse
+    //Getting records
+    @GET("gettabledata")
     suspend  fun viewrecords(): MyRecordResponse
 }

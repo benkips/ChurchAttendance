@@ -18,13 +18,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -41,7 +41,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -61,7 +60,7 @@ import com.example.churchattendance.viewModels.ChurchAttendanceModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Addmyrecords(navController: NavController, viewModel: ChurchAttendanceModel,scaffoldState: ScaffoldState,) {
+fun Addmyrecords(navController: NavController, viewModel: ChurchAttendanceModel, scaffoldState: ScaffoldState,) {
     val savingchurchresponse = viewModel.urlzResponse.observeAsState()
 
     val contextForToast = LocalContext.current.applicationContext
@@ -105,18 +104,19 @@ fun Addmyrecords(navController: NavController, viewModel: ChurchAttendanceModel,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
+                .padding(vertical = 20.dp)
 
         ) {
 
 
 
             Image(
-                painter = painterResource(id = R.drawable.dove),
+                painter = painterResource(R.drawable.dove),
                 contentDescription = null,
                 modifier = Modifier
                     .clip(CircleShape)
                     .size(64.dp),
-                contentScale = ContentScale.FillWidth
+                /*contentScale = ContentScale.FillWidth*/
             )
             Text(
                 text = "KABETE ALTAR",
@@ -257,7 +257,7 @@ fun Addmyrecords(navController: NavController, viewModel: ChurchAttendanceModel,
                     .fillMaxWidth(0.5f),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD81B60))
             ) {
-                androidx.compose.material.Text(
+               Text(
                     text = "Save",
                     color = Color.White,
                     modifier = Modifier.padding(6.dp)

@@ -6,19 +6,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -84,19 +91,33 @@ fun DaysList(
             .fillMaxSize()
             .background(colorResource(id = R.color.white))
     ) {
-        LazyColumn(
-            Modifier.padding(10.dp)
-        ) {
-            items(days) {
-                TeachingCardItem(
-                    navController = navController,
-                    item = it,
-                    R.drawable.baseline_edit_calendar_24,
-                    viewModel
-                )
-            }
-        }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(vertical = 20.dp)
 
+        ) {
+            Text(
+                text = "Recordings",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .padding(1.dp)
+            )
+            LazyColumn(
+                Modifier.padding(start = 10.dp, end = 10.dp)
+            ) {
+                items(days) {
+                    TeachingCardItem(
+                        navController = navController,
+                        item = it,
+                        R.drawable.baseline_edit_calendar_24,
+                        viewModel
+                    )
+                }
+            }
+
+        }
     }
 }
 
@@ -127,8 +148,10 @@ fun TeachingCardItem(
                 painter = painterResource(id = imagevector),
                 contentDescription = null,
                 modifier = Modifier.size(50.dp),
-                contentScale = ContentScale.FillBounds
+                contentScale = ContentScale.FillBounds,
+                colorFilter = ColorFilter.tint(color = Color(0xFFD81B60))
             )
+
 
             Column(Modifier.padding(start = 5.dp)) {
                 Text(
@@ -143,6 +166,30 @@ fun TeachingCardItem(
                         fontWeight = FontWeight.SemiBold,
                         color = colorResource(id = R.color.black),
                     )
+                    Spacer(Modifier.weight(0.8f))
+                    Column(Modifier.padding(start = 5.dp)) {
+                        Button(
+                            onClick = {
+
+
+
+                            },
+                            shape = RoundedCornerShape(topEnd = 0.dp, topStart = 10.dp, bottomEnd = 0.dp, bottomStart = 10.dp),
+                            modifier = Modifier
+                                .padding(top = 5.dp)
+                                .fillMaxWidth(0.5f),
+
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFD81B60))
+                        ) {
+                            androidx.compose.material3.Text(
+                                text = "Download",
+                                color = Color.White,
+
+                            )
+
+                        }
+
+                    }
                 }
             }
 
